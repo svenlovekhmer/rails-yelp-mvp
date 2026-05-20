@@ -1,0 +1,110 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-5">
+
+          <div class="d-flex justify-content-between align-items-start mb-4">
+
+            <div>
+              <h1 class="display-6 mb-2">
+                <%= @restaurant.name %>
+              </h1>
+
+              <span class="badge text-bg-primary">
+                <%= @restaurant.category %>
+              </span>
+            </div>
+
+            <div class="d-flex gap-3">
+
+              <%= link_to edit_restaurant_path(@restaurant),
+                    class: "text-primary fs-5" do %>
+
+                <i class="fa-solid fa-pen-to-square"></i>
+
+              <% end %>
+
+              <%= link_to restaurant_path(@restaurant),
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    },
+                    class: "text-danger fs-5" do %>
+
+                <i class="fa-regular fa-trash-can"></i>
+
+              <% end %>
+
+            </div>
+
+          </div>
+
+          <hr class="my-4">
+
+          <div class="mb-4">
+
+            <h2 class="h6 text-uppercase text-muted mb-3">
+              Contact information
+            </h2>
+
+            <div class="d-flex align-items-center mb-3">
+              <i class="fa-solid fa-location-dot me-3 text-secondary"></i>
+
+              <span>
+                <%= @restaurant.address %>
+              </span>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-phone me-3 text-secondary"></i>
+
+              <span>
+                <%= @restaurant.phone_number %>
+              </span>
+            </div>
+
+          </div>
+
+          <div class="mt-5 d-flex justify-content-between">
+            <div>
+              <%= link_to "← Back to restaurants",
+                  restaurants_path,
+                  class: "btn btn-outline-secondary" %>
+            </div>
+            <div>
+            <%= link_to "Add review ⭐️",
+                  new_restaurant_review_path(@restaurant),
+                  class: "btn btn-success" %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<p><strong>Reviews</strong></p>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item d-flex justify-content-between">
+      <div>
+        <%= review.rating %> ⭐️
+      </div>
+      <div>
+        <%= review.content %>
+        <%= link_to "Delete",
+        review_path(review),
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+  %>
+      </div>
+
+    </li>
+  <% end %>
+</ul>
+<br>

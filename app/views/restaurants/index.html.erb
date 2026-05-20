@@ -1,0 +1,84 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h1 class="h2 mb-1">Restaurants</h1>
+          <p class="text-muted mb-0">
+            Discover and manage your favorite places
+          </p>
+        </div>
+
+        <%= link_to "Add restaurant",
+              new_restaurant_path,
+              class: "btn btn-primary" %>
+      </div>
+
+      <div class="card border-0 shadow-sm">
+        <ul class="list-group list-group-flush">
+
+          <% @restaurants.each do |restaurant| %>
+
+            <li class="list-group-item py-4">
+
+              <div class="d-flex justify-content-between align-items-start">
+
+                <div>
+
+                  <div class="d-flex align-items-center gap-2 mb-2">
+                    <h2 class="h5 mb-0">
+                      <%= link_to restaurant.name,
+                            restaurant_path(restaurant),
+                            class: "text-decoration-none text-dark" %>
+                    </h2>
+
+                    <span class="badge text-bg-light border">
+                      <%= restaurant.category %>
+                    </span>
+                  </div>
+                  <div class="text-muted small">
+
+                    <div class="mb-1">
+                      <i class="fa-solid fa-location-dot me-2"></i>
+                      <%= restaurant.address %>
+                    </div>
+
+                    <div>
+                      <i class="fa-solid fa-phone me-2"></i>
+                      <%= restaurant.phone_number %>
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="d-flex flex-column mb-3">
+                  <div class="d-flex justify-content-center mb-3">
+                    <%= link_to "Edit restaurant",
+                    edit_restaurant_path(restaurant),
+                    class: "btn btn-primary" %>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <%= link_to restaurant_path(restaurant),
+                     data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Are you sure?"
+                      },
+                      class: "text-danger" do %>
+                  <i class="fa-regular fa-trash-can"></i>
+                <% end %>
+                  </div>
+                </div>
+
+              </div>
+
+            </li>
+
+          <% end %>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
